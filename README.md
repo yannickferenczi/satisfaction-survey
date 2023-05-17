@@ -1,32 +1,37 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Cantina Satisfaction Survey
 
-Welcome,
+[The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
 
-## Reminders
+## Deployment
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+The application has been deployed on Heroku with the following steps:
 
-## Creating the Heroku app
+1. I first made sure that the requirements.txt file was up to date with the used dependencies of the project by opening a terminal from the main directory and typing the following command:<br>
+    pip freeze > requirements.txt
+2. Then I staged, commited and pushed all changements using the git command in the terminal:<br>
+    git add .<br>
+    git commit -m "Add requirements for deployment"<br>
+    git push
+3. Then I went to [Heroku](https://dashboard.heroku.com/apps) and logged into my free account.
+4. From my Heroku dashboard, I clicked on the button "New", in the top right corner of the dashboard and then clicked on "Create new app".
+5. In the "Create New App" form which just opened, I gave a name to my application and selected Europe as a region. The app name must be unique. Therefore, I had call mine cantina-satisfaction-survey as satisfaction-survey was already used and not available anymore.
+6. I confirm the creation of the app by clicking the "Create app" button, just underneath the form.
+7. Within the created app, I opened the Settings tab.
+8. From the Settings tab, I scrolled down to the Config Vars. I needed to add two condig variables:
+    - The first one was to add the needed confidential information for my script to access my google spreadsheet. 
+    - The second one to add the port.
+9. So I clicked the "Reveal Config Vars" button.
+10. In the first "KEY" field, I typed CREDS (in uppercase) and in the "VALUE" field, I paste the content of my creds.json file (which is a key created with the google drive API, to allow my script to access to my google spreadsheet) and clicked the add button.
+11. In the second "KEY" field, I typed PORT (also in uppercase) and 8000 in the corresponding "VALUE" field and again clicked the add button.
+12. I then went further down to the Buildpacks to add the needed dependencies.
+13. I clicked the "Add buildpack" button, selected python and confirm with the "Save changes" button.
+14. I repeated the steps, selecting nodejs.
+15. I finally reached the Deploy tab (from the very top of the page).
+16. In the deployment method, I have selected GitHub.
+17. Then I searched the name of the repository I wanted to deploy (satisfaction-survey).
+18. I then clicked the "Connect" button next to the name of my project repository.
+19. Then I clicked the "Enable Automatic Deploys" button further down.
+20. And finally clicked the "Deploy Branch" button underneath.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
+[The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
