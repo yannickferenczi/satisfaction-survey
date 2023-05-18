@@ -1,5 +1,6 @@
 # -------------------- THIS REPRESENTS 80 CHARACTERS ------------------------ #
 
+import sys
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -12,8 +13,7 @@ CREDENTIALS = Credentials.from_service_account_file('creds.json', scopes=SCOPES)
 GSPREAD_CLIENT = gspread.authorize(CREDENTIALS)
 SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
 
-
-if __name__ == "__main__":
+def display_menu():
     print("""
     Welcome to the Employee Cantina Satisfaction Survey!
 
@@ -42,6 +42,25 @@ if __name__ == "__main__":
     the results to be representative, we kindly ask you to fill in the form 
     only once.
     """)
+
+    # Main area of the application:
+    print("- Type (m) or (M) to go to the menu\n")
+    print("- Type (e) or (E) to exit the application\n")
+    print("- Type (s) or (S) to start the survey\n")
+    print("- type (r) or (R) to see the current results of the survey\n")
+
+    user_choice = input("What do you want to do?\n")
+    if user_choice.lower() == "m":
+        display_menu()
+    elif user_choice.lower() == "e":
+        sys.exit("Thank you for your visit! Have a great day!")
+    elif user_choice.lower() == "s":
+        display_survey()
+
+
+if __name__ == "__main__":
+
+    display_menu()
 
     for i in range(1, 8, 6):
         possible_answer_num = [int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")]
