@@ -1,7 +1,3 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-
 # -------------------- THIS REPRESENTS 80 CHARACTERS ------------------------ #
 
 import gspread
@@ -46,3 +42,14 @@ if __name__ == "__main__":
     the results to be representative, we kindly ask you to fill in the form 
     only once.
     """)
+
+    for i in range(1, 8, 6):
+        possible_answer_num = [int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")]
+        possible_answer_text = [element[0] for element in SPREADSHEET.worksheet("Survey questions").get_values(f"C{i+1}:C{i+5}")]
+        choices = dict(zip(possible_answer_num, possible_answer_text))
+        print(choices)
+        print()
+        print(SPREADSHEET.worksheet("Survey questions").get_values(f"B{i}")[0][0])
+        for num, text in choices.items():
+            print(num, text)
+        print()
