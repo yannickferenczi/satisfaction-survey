@@ -64,7 +64,7 @@ def display_menu_options():
 
 
 def display_survey():
-    for i in range(1, 8, 6):
+    for i in range(1, 122, 6):
         possible_answer_num = [int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")]
         possible_answer_text = [element[0] for element in SPREADSHEET.worksheet("Survey questions").get_values(f"C{i+1}:C{i+5}")]
         choices = dict(zip(possible_answer_num, possible_answer_text))
