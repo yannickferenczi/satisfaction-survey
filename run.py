@@ -16,7 +16,7 @@ SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
 
 def display_menu():
     print("""
-    Welcome to the Employee Cantina Satisfaction Survey!
+           Welcome to the Employee Cantina Satisfaction Survey!
 
     At our company, we believe that a satisfied and nourished workforce is 
     essential for productivity and well-being. We value the opinions and 
@@ -49,17 +49,19 @@ def display_menu():
 
 def display_menu_options():
     print()
-    print("The basic commands of our survey are as below and can be used at anytime:\n")
-    print("- (m) or (M) --> menu\n")
-    print("- (s) or (S) --> survey\n")
-    print("- (r) or (R) --> results\n")
-    print("- (e) or (E) --> exit\n")
+    print("""
+    The basic commands of our survey are as below and can be used at anytime:
+        - (m) or (M) --> menu
+        - (s) or (S) --> survey
+        - (r) or (R) --> results
+        - (e) or (E) --> exit
+    """)
 
-    user_choice = input("What do you want to do?\n")
+    user_choice = input("    What do you want to do?\n")
     if user_choice.lower() == "m":
         display_menu()
     elif user_choice.lower() == "e":
-        sys.exit("Thank you for your visit! Have a great day!")
+        sys.exit("    Thank you for your visit! Have a great day!")
     elif user_choice.lower() == "s":
         display_survey()
 
@@ -74,11 +76,11 @@ def display_survey():
         for num, text in choices.items():
             print(num, text)
         print()
-        answer = input("Please answer with the number corresponding to your choice: \n")
-        print("Processing your answer ...")
+        answer = input("    Please answer with the number corresponding to your choice: \n")
+        print("    Processing your answer ...")
         sleep(5)
     print()
-    print("We are done here. Thank you for filling in our survey!")
+    print("    We are done here. Thank you for filling in our survey!")
 
     display_menu_options()
 
