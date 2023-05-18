@@ -1,6 +1,7 @@
 # -------------------- THIS REPRESENTS 80 CHARACTERS ------------------------ #
 
 import sys
+from time import sleep
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -74,6 +75,8 @@ def display_survey():
             print(num, text)
         print()
         answer = input("Please answer with the number corresponding to your choice: \n")
+        print("Processing your answer ...")
+        sleep(5)
     print()
     print("We are done here. Thank you for filling in our survey!")
 
