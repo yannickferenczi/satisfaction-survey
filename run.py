@@ -16,6 +16,10 @@ SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
 
 
 def display_menu():
+    """
+    This function display the welcoming message of the application
+    as well as the main commands to navigate within the application
+    """
     print("""
            Welcome to the Employee Cantina Satisfaction Survey!
 
@@ -49,7 +53,10 @@ def display_menu():
     
 
 def display_menu_options():
-    print()
+    """
+    This function display the commands available to navigate within the
+    application
+    """
     print("""
     The basic commands of our survey are as below and can be used at anytime:
         - (m) or (M) --> menu
@@ -62,17 +69,42 @@ def display_menu_options():
 
 
 def verify_menu_answers(user_input):
+    """
+    This function takes a user input as a parameter and decides what to 
+    run next
+    """
     if user_input.lower() == "m":
         display_menu()
-    elif user_input.lower() == "e":
-        sys.exit("    Thank you for your visit! Have a great day!")
     elif user_input.lower() == "s":
         display_survey()
     elif user_input.lower() == "r":
         pass  # ----------------------------------------------- TO BE IMPLEMENTED !
+    elif user_input.lower() == "e":
+        if confirm_exit():
+            sys.exit("    Thank you for your visit! Have a great day!")
+        else:
+            display_menu_options()
+    else:
+        print("    Your answer is not valid.")
+        display_menu_options()
+
+
+def confirm_exit():
+    """
+    This function verify if the user confirm the exit command and 
+    return a boolean
+    """
+    confirm = input("Do you really want to exit the application ([y]/n)?\n")
+    if confirm == "y":
+        return True
+    False
 
 
 def display_survey():
+    """
+    This function display all the questions, one after another and collects the answers 
+    from the user
+    """
     print("    **************************** S U R V E Y ****************************")
     for i in range(1, 122, 6):
         possible_answer_num = [
@@ -84,6 +116,8 @@ def display_survey():
         choices = dict(zip(possible_answer_num, possible_answer_text))
         question = SPREADSHEET.worksheet("Survey questions").get_values(f"B{i}")[0][0]
         answer = display_question(question, choices)
+        if answer in "mesr":
+            verify_menu_answers(answer)
         sleep(5)
     print()
     print("    We are done here. Thank you for filling in our survey!")
@@ -92,12 +126,17 @@ def display_survey():
 
 
 def display_question(question, choices):
+    """
+    This function is recursive. it displays a question of the survey and 
+    verify if the answer of the user is valid. If it is not, it calls 
+    itself again until the input is as expected
+    """
     print()
     print(f'    {question}')
     for num, text in choices.items():
         print(f"        {num} - {text}")
     print()
-    answer = input("    Your answer: \n")
+    answer = input("Your answer: \n")
     if answer_is_valid(answer, choices):
         return answer
     else:
@@ -105,6 +144,12 @@ def display_question(question, choices):
 
 
 def answer_is_valid(user_input, choices):
+    """
+    This function verify if an input is valid.
+    It takes as parameters:
+     - the user input
+     - the possible answers for the related question
+    """
     try:
         int(user_input)
     except ValueError:
