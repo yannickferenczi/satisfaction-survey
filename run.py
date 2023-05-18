@@ -43,11 +43,16 @@ def display_menu():
     only once.
     """)
 
-    # Main area of the application:
-    print("- Type (m) or (M) to go to the menu\n")
-    print("- Type (e) or (E) to exit the application\n")
-    print("- Type (s) or (S) to start the survey\n")
-    print("- type (r) or (R) to see the current results of the survey\n")
+    display_menu_options()
+    
+
+def display_menu_options():
+    print()
+    print("The basic commands of our survey are as below and can be used at anytime:\n")
+    print("- (m) or (M) --> menu\n")
+    print("- (s) or (S) --> survey\n")
+    print("- (r) or (R) --> results\n")
+    print("- (e) or (E) --> exit\n")
 
     user_choice = input("What do you want to do?\n")
     if user_choice.lower() == "m":
@@ -58,17 +63,23 @@ def display_menu():
         display_survey()
 
 
-if __name__ == "__main__":
-
-    display_menu()
-
+def display_survey():
     for i in range(1, 8, 6):
         possible_answer_num = [int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")]
         possible_answer_text = [element[0] for element in SPREADSHEET.worksheet("Survey questions").get_values(f"C{i+1}:C{i+5}")]
         choices = dict(zip(possible_answer_num, possible_answer_text))
-        print(choices)
         print()
         print(SPREADSHEET.worksheet("Survey questions").get_values(f"B{i}")[0][0])
         for num, text in choices.items():
             print(num, text)
         print()
+        answer = input("Please answer with the number corresponding to your choice: \n")
+    print()
+    print("We are done here. Thank you for filling in our survey!")
+
+    display_menu_options()
+
+
+if __name__ == "__main__":
+
+    display_menu()
