@@ -1,4 +1,4 @@
-# -------------------- THIS REPRESENTS 80 CHARACTERS ------------------------ #
+# ********************** THIS REPRESENTS 80 CHARACTERS ********************** #
 
 import sys
 from time import sleep
@@ -13,6 +13,7 @@ SCOPES = [
 CREDENTIALS = Credentials.from_service_account_file('creds.json', scopes=SCOPES)
 GSPREAD_CLIENT = gspread.authorize(CREDENTIALS)
 SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
+
 
 def display_menu():
     print("""
@@ -56,33 +57,8 @@ def display_menu_options():
         - (r) or (R) --> results
         - (e) or (E) --> exit
     """)
-
     user_choice = input("    What do you want to do?\n")
     verify_menu_answers(user_choice)
-
-
-def display_survey():
-    for i in range(1, 122, 6):
-        possible_answer_num = [int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")]
-        possible_answer_text = [element[0] for element in SPREADSHEET.worksheet("Survey questions").get_values(f"C{i+1}:C{i+5}")]
-        choices = dict(zip(possible_answer_num, possible_answer_text))
-        print()
-        print(SPREADSHEET.worksheet("Survey questions").get_values(f"B{i}")[0][0])
-        for num, text in choices.items():
-            print(num, text)
-        print()
-        answer = input("    Please answer with the number corresponding to your choice: \n")
-        print("    Processing your answer ...")
-        verify_survey_answers(answer)
-        sleep(5)
-    print()
-    print("    We are done here. Thank you for filling in our survey!")
-
-    display_menu_options()
-
-
-def verify_survey_answers(user_input):
-    pass  # ----------------------------------------------- TO BE IMPLEMENTED !
 
 
 def verify_menu_answers(user_input):
@@ -94,6 +70,65 @@ def verify_menu_answers(user_input):
         display_survey()
     elif user_input.lower() == "r":
         pass  # ----------------------------------------------- TO BE IMPLEMENTED !
+
+
+def display_survey():
+    print("    **************************** S U R V E Y ****************************")
+    for i in range(1, 122, 6):
+        possible_answer_num = [
+            int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")
+        ]
+        possible_answer_text = [
+            element[0] for element in SPREADSHEET.worksheet("Survey questions").get_values(f"C{i+1}:C{i+5}")
+        ]
+        choices = dict(zip(possible_answer_num, possible_answer_text))
+        question = SPREADSHEET.worksheet("Survey questions").get_values(f"B{i}")[0][0]
+        answer = display_question(question, choices)
+        sleep(5)
+    print()
+    print("    We are done here. Thank you for filling in our survey!")
+
+    display_menu_options()
+
+
+def display_question(question, choices):
+    print()
+    print(f'    {question}')
+    for num, text in choices.items():
+        print(f"        {num} - {text}")
+    print()
+    answer = input("    Your answer: \n")
+    if answer_is_valid(answer, choices):
+        return answer
+    else:
+        return display_question(question, choices)
+
+
+def answer_is_valid(user_input, choices):
+    try:
+        int(user_input)
+    except ValueError:
+        if user_input.lower() not in "mesr" or user_input.lower() == "":
+            print("""
+    Your answer is not valid.
+    Remember, the main commands are: 
+        - (m) or (M) for the menu
+        - (s) or (S) for the survey
+        - (r) or (R) for the results
+        - (e) or (E) to exit the application
+            """)
+            return False
+        else:
+            return True
+    else:
+        if int(user_input) not in range(1, len(choices) + 1):
+            print(f"""
+    Your answer is not valid.
+    You must choose among the suggested answers!
+            """)
+            return False
+        else:
+            return True
 
 
 if __name__ == "__main__":
