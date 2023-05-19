@@ -15,7 +15,7 @@ GSPREAD_CLIENT = gspread.authorize(CREDENTIALS)
 SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
 
 
-def display_menu(starting_question):
+def display_menu(user_answers, starting_question):
     """
     This function display the welcoming message of the application
     as well as the main commands to navigate within the application
@@ -49,10 +49,10 @@ def display_menu(starting_question):
     only once.
     """)
 
-    display_menu_options(starting_question)
+    display_menu_options(user_answers, starting_question)
     
 
-def display_menu_options(starting_question):
+def display_menu_options(user_answers, starting_question):
     """
     This function display the commands available to navigate within the
     application
@@ -65,18 +65,18 @@ def display_menu_options(starting_question):
         - (e) or (E) --> exit
     """)
     user_choice = input("    What do you want to do?\n")
-    verify_menu_answers(starting_question, user_choice)
+    verify_menu_answers(user_answers, starting_question, user_choice)
 
 
-def verify_menu_answers(starting_question, user_input):
+def verify_menu_answers(user_answers, starting_question, user_input):
     """
     This function takes a user input as a parameter and decides what to 
     run next
     """
     if user_input.lower() == "m":
-        display_menu(starting_question)
+        display_menu(user_answers, starting_question)
     elif user_input.lower() == "s":
-        display_survey(starting_question)
+        display_survey(user_answers, starting_question)
     elif user_input.lower() == "r":
         pass  # ----------------------------------------------- TO BE IMPLEMENTED !
     elif user_input.lower() == "e":
@@ -85,10 +85,10 @@ def verify_menu_answers(starting_question, user_input):
             good_bye_message = f"{some_spacing}    Thank you for your visit! Have a great day!{some_spacing}"
             sys.exit(good_bye_message)
         else:
-            display_menu_options(starting_question)
+            display_menu_options(user_answers, starting_question)
     else:
         print("    Your answer is not valid.")
-        display_menu_options(starting_question)
+        display_menu_options(user_answers, starting_question)
 
 
 def confirm_exit():
@@ -105,13 +105,12 @@ def confirm_exit():
     False
 
 
-def display_survey(starting_question):
+def display_survey(user_answers, starting_question):
     """
     This function display all the questions, one after another and collects the answers 
     from the user
     """
     print("    **************************** S U R V E Y ****************************")
-    user_answers = []
     for i in range(starting_question, 122, 6):
         possible_answer_num = [
             int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")
@@ -123,15 +122,21 @@ def display_survey(starting_question):
         question = SPREADSHEET.worksheet("Survey questions").get_values(f"B{i}")[0][0]
         answer = display_question(question, choices)
         if answer in "mesr":
-            verify_menu_answers(starting_question, answer)
+            verify_menu_answers(user_answers, starting_question, answer)
         else:
             user_answers.append(choices[int(answer)])
             starting_question += 6
         sleep(5)
+    current_survey_results = SPREADSHEET.worksheet('Survey results')
+    current_survey_results.append_row(user_answers)
     print()
-    print("    We are done here. Thank you for filling in our survey!")
+    print("""
+    We are done here.
+    Your answers have been submitted successfully.
+    Thank you for filling in our survey!
+    """)
 
-    display_menu_options(starting_question)
+    display_menu_options(user_answers, starting_question)
 
 
 def display_question(question, choices):
@@ -186,5 +191,6 @@ def answer_is_valid(user_input, choices):
 
 
 if __name__ == "__main__":
+    user_answers = []
     starting_question = 1
-    display_menu(starting_question)
+    display_menu(user_answers, starting_question)
