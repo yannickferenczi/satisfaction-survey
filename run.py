@@ -15,12 +15,14 @@ CREDENTIALS = Credentials.from_service_account_file('creds.json', scopes=SCOPES)
 GSPREAD_CLIENT = gspread.authorize(CREDENTIALS)
 SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
 
+
 class Question:
     def __init__(self, number, name, options_num_values, options_text_values):
         self.number = number
         self.name = name
         self.options_num_values = options_num_values
         self.options_text_values = options_text_values
+
 
 def display_menu(user_answers, starting_question):
     """
@@ -191,7 +193,9 @@ def answer_is_valid(user_input, choices):
 
 
 def access_results():
-    pass
+    survey_results = pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
+    for question in questions:
+        survey_results.replace(question.options_text_values, question.options_num_values, inplace=True)
 
 
 if __name__ == "__main__":
