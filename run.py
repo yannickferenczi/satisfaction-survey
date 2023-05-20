@@ -87,7 +87,7 @@ def verify_menu_answers(user_answers, starting_question, user_input):
     elif user_input.lower() == "s":
         display_survey(user_answers, starting_question)
     elif user_input.lower() == "r":
-        access_results()
+        show_results()
     elif user_input.lower() == "e":
         if confirm_exit():
             some_spacing = "\n" * 12
@@ -192,10 +192,25 @@ def answer_is_valid(user_input, choices):
             return True
 
 
-def access_results():
-    survey_results = pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
+def show_results():
+    survey_num_results = get_results_from_worksheet()
+    average_satisfaction_per_question = []
+    print()
     for question in questions:
-        survey_results.replace(question.options_text_values, question.options_num_values, inplace=True)
+        average_satisfaction_per_question.append((question.name, sum(column:=survey_num_results.get(question.name)) / len(column)))
+    print(average_satisfaction_per_question)
+
+
+def get_results_from_worksheet():
+    survey_results = pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
+    survey_results_converted = convert_results_into_num(survey_results)
+    return survey_results_converted
+
+
+def convert_results_into_num(dataframe_results):
+    for question in questions:
+        dataframe_results.replace(question.options_text_values, question.options_num_values, inplace=True)
+    return dataframe_results
 
 
 if __name__ == "__main__":
