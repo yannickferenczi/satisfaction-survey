@@ -4,6 +4,7 @@ import sys
 from time import sleep
 import gspread
 from google.oauth2.service_account import Credentials
+import pandas as pd
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -13,6 +14,14 @@ SCOPES = [
 CREDENTIALS = Credentials.from_service_account_file('creds.json', scopes=SCOPES)
 GSPREAD_CLIENT = gspread.authorize(CREDENTIALS)
 SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
+
+
+class Question:
+    def __init__(self, number, name, options_num_values, options_text_values):
+        self.number = number
+        self.name = name
+        self.options_num_values = options_num_values
+        self.options_text_values = options_text_values
 
 
 def display_menu(user_answers, starting_question):
@@ -78,7 +87,7 @@ def verify_menu_answers(user_answers, starting_question, user_input):
     elif user_input.lower() == "s":
         display_survey(user_answers, starting_question)
     elif user_input.lower() == "r":
-        pass  # ----------------------------------------------- TO BE IMPLEMENTED !
+        access_results()
     elif user_input.lower() == "e":
         if confirm_exit():
             some_spacing = "\n" * 12
@@ -87,7 +96,7 @@ def verify_menu_answers(user_answers, starting_question, user_input):
         else:
             display_menu_options(user_answers, starting_question)
     else:
-        print("    Your answer is not valid.")
+        print("    !! answer not valid !!")
         display_menu_options(user_answers, starting_question)
 
 
@@ -111,22 +120,14 @@ def display_survey(user_answers, starting_question):
     from the user
     """
     print("    **************************** S U R V E Y ****************************")
-    for i in range(starting_question, 122, 6):
-        possible_answer_num = [
-            int(element[0]) for element in SPREADSHEET.worksheet("Survey questions").get(f"B{i+1}:B{i+5}")
-        ]
-        possible_answer_text = [
-            element[0] for element in SPREADSHEET.worksheet("Survey questions").get_values(f"C{i+1}:C{i+5}")
-        ]
-        choices = dict(zip(possible_answer_num, possible_answer_text))
-        question = SPREADSHEET.worksheet("Survey questions").get_values(f"B{i}")[0][0]
-        answer = display_question(question, choices)
+    for i in range(starting_question, 21):
+        choices = dict(zip(questions[i].options_num_values, questions[i].options_text_values))
+        answer = display_question(questions[i], choices)
         if answer in "mesr":
             verify_menu_answers(user_answers, starting_question, answer)
         else:
             user_answers.append(choices[int(answer)])
-            starting_question += 6
-        sleep(5)
+            starting_question += 1
     current_survey_results = SPREADSHEET.worksheet('Survey results')
     current_survey_results.append_row(user_answers)
     print()
@@ -146,9 +147,10 @@ def display_question(question, choices):
     itself again until the input is as expected
     """
     print()
-    print(f'    {question}')
-    for num, text in choices.items():
-        print(f"        {num} - {text}")
+    print(f"    {question.number}. {question.name}")
+    for i in range(1, len(choices) + 1):
+        if choices[i] != "":
+            print(f"        {i} - {choices[i]}")
     print()
     answer = input("Your answer: \n")
     if answer_is_valid(answer, choices):
@@ -169,7 +171,7 @@ def answer_is_valid(user_input, choices):
     except ValueError:
         if user_input.lower() not in "mesr" or user_input.lower() == "":
             print("""
-    Your answer is not valid.
+    !! answer not valid !!
     Remember, the main commands are: 
         - (m) or (M) for the menu
         - (s) or (S) for the survey
@@ -182,7 +184,7 @@ def answer_is_valid(user_input, choices):
     else:
         if int(user_input) not in range(1, len(choices) + 1):
             print(f"""
-    Your answer is not valid.
+    !! answer not valid !!
     You must choose among the suggested answers!
             """)
             return False
@@ -190,7 +192,25 @@ def answer_is_valid(user_input, choices):
             return True
 
 
+def access_results():
+    survey_results = pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
+    for question in questions:
+        survey_results.replace(question.options_text_values, question.options_num_values, inplace=True)
+
+
 if __name__ == "__main__":
+    questions_df = pd.DataFrame(SPREADSHEET.worksheet("Survey questions").get_all_records())
+    questions = []
+    for i in range(0, 101, 5):
+        question_number = questions_df.at[i, "Question numbers"]
+        question_name = questions_df.at[i, "Questions"]
+        options_num_val = []
+        options_text_val = []
+        for j in range(5):
+            if questions_df.at[i+j, "text values"] != "":
+                options_num_val.append(questions_df.at[i+j, "numeric values"])
+                options_text_val.append(questions_df.at[i+j, "text values"])
+        questions.append(Question(question_number, question_name, options_num_val, options_text_val))
     user_answers = []
-    starting_question = 1
+    starting_question = 0
     display_menu(user_answers, starting_question)
