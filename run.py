@@ -5,6 +5,7 @@ from time import sleep
 import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
+import matplotlib.pyplot as plt
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -193,24 +194,37 @@ def answer_is_valid(user_input, choices):
 
 
 def show_results():
-    survey_num_results = get_results_from_worksheet()
+    survey_text_results = get_results_from_worksheet()
+    survey_num_results = convert_results_into_num(survey_text_results)
     average_satisfaction_per_question = []
     print()
     for question in questions:
         average_satisfaction_per_question.append((question.name, sum(column:=survey_num_results.get(question.name)) / len(column)))
     print(average_satisfaction_per_question)
+    overall_satisfaction_average = calculate_overall_satisfaction_average(average_satisfaction_per_question)
+    print(overall_satisfaction_average)
+    convert_changing_request_into_chart(survey_text_results)
+
+
+def calculate_overall_satisfaction_average(average_satisfaction_per_question):
+    return sum(list_of_average:=[average[1] for average in average_satisfaction_per_question[2:-1]]) / len(list_of_average)
+
+
+def convert_changing_request_into_chart(survey_text_results):
+    change_request = survey_text_results.pivot_table(index= ["If you could change one thing about the cantina, what would it be?"], aggfunc= "size")
+    change_request.plot(kind="bar")
+    plt.show()
 
 
 def get_results_from_worksheet():
-    survey_results = pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
-    survey_results_converted = convert_results_into_num(survey_results)
-    return survey_results_converted
+    return pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
 
 
 def convert_results_into_num(dataframe_results):
+    new_dataframe = dataframe_results.copy()
     for question in questions:
-        dataframe_results.replace(question.options_text_values, question.options_num_values, inplace=True)
-    return dataframe_results
+        new_dataframe.replace(question.options_text_values, question.options_num_values, inplace=True)
+    return new_dataframe
 
 
 if __name__ == "__main__":
