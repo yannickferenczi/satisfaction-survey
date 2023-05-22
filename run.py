@@ -201,25 +201,32 @@ def show_results(user_answers, starting_question):
         average_satisfaction_per_question.append((question.name, sum(column:=survey_num_results.get(question.name)) / len(column)))
     overall_satisfaction_average = calculate_overall_satisfaction_average(average_satisfaction_per_question)
     print()
-    print(f"    The overall satisfaction average of our customer is: {round(overall_satisfaction_average, 2)} out of 5.\n")
+    print(f"    The overall customer satisfaction average of our cantina is: {round(overall_satisfaction_average, 2)} out of 5.\n")
     print("""
     For more details on the results, please type (d) or (D).
-
-    Otherwise, use the main commands to navigate within the app""")
-    display_menu_options(user_answers, starting_question)
-    convert_changing_request_into_chart(survey_text_results)
+    Otherwise, use the main commands to navigate within the app
+    """)
+    answer = input("Your answer: \n")
+    if answer.lower() == "d":
+        convert_results_into_charts(survey_text_results)
+        display_menu_options(user_answers, starting_question)
+    else:
+        verify_menu_answers(user_answers, starting_question, answer)
 
 
 def calculate_overall_satisfaction_average(average_satisfaction_per_question):
     return sum(list_of_average:=[average[1] for average in average_satisfaction_per_question[2:-1]]) / len(list_of_average)
 
 
-def convert_changing_request_into_chart(survey_text_results):
-    change_request = survey_text_results.pivot_table(columns= ["If you could change one thing about the cantina, what would it be?"], aggfunc= "size")
-    print(change_request)
-    plt.simple_bar(change_request.index, change_request, width= 80, title= "If you could change one thing about the cantina, what would it be?")
-    plt.show()
-
+def convert_results_into_charts(survey_text_results):
+    print("")
+    for question in questions:
+        change_request = survey_text_results.pivot_table(columns= [question.name], aggfunc= "size")
+        plt.simple_bar(change_request.index, change_request, width= 80, title= question.name)
+        plt.show()
+        print("")
+        print("--------")
+        print("")
 
 def get_results_from_worksheet():
     return pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
