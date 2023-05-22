@@ -5,7 +5,7 @@ from time import sleep
 import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotext as plt
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -88,7 +88,7 @@ def verify_menu_answers(user_answers, starting_question, user_input):
     elif user_input.lower() == "s":
         display_survey(user_answers, starting_question)
     elif user_input.lower() == "r":
-        show_results()
+        show_results(user_answers, starting_question)
     elif user_input.lower() == "e":
         if confirm_exit():
             some_spacing = "\n" * 12
@@ -193,16 +193,20 @@ def answer_is_valid(user_input, choices):
             return True
 
 
-def show_results():
+def show_results(user_answers, starting_question):
     survey_text_results = get_results_from_worksheet()
     survey_num_results = convert_results_into_num(survey_text_results)
     average_satisfaction_per_question = []
-    print()
     for question in questions:
         average_satisfaction_per_question.append((question.name, sum(column:=survey_num_results.get(question.name)) / len(column)))
-    print(average_satisfaction_per_question)
     overall_satisfaction_average = calculate_overall_satisfaction_average(average_satisfaction_per_question)
-    print(overall_satisfaction_average)
+    print()
+    print(f"    The overall satisfaction average of our customer is: {round(overall_satisfaction_average, 2)} out of 5.\n")
+    print("""
+    For more details on the results, please type (d) or (D).
+
+    Otherwise, use the main commands to navigate within the app""")
+    display_menu_options(user_answers, starting_question)
     convert_changing_request_into_chart(survey_text_results)
 
 
@@ -211,8 +215,9 @@ def calculate_overall_satisfaction_average(average_satisfaction_per_question):
 
 
 def convert_changing_request_into_chart(survey_text_results):
-    change_request = survey_text_results.pivot_table(index= ["If you could change one thing about the cantina, what would it be?"], aggfunc= "size")
-    change_request.plot(kind="bar")
+    change_request = survey_text_results.pivot_table(columns= ["If you could change one thing about the cantina, what would it be?"], aggfunc= "size")
+    print(change_request)
+    plt.simple_bar(change_request.index, change_request, width= 80, title= "If you could change one thing about the cantina, what would it be?")
     plt.show()
 
 
