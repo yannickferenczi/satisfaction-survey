@@ -2,8 +2,31 @@
 
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
 
+---
+## Table of Contents
 
-## Deployment
+1. [User Experience](#user-experience)
+2. [Technologies Used](#technologies-used)
+3. [Testing](#testing)
+4. [Bugs](#bugs)
+5. [Deployment](#deployment)
+6. [Credits](#credits)
+7. [Acknowledgements](#acknowledgements)
+
+---
+## User Experience (#user-experience)
+
+---
+## Technologies Used (#technologies-used)
+
+---
+## Testing (#testing)
+
+---
+## Bugs (#bugs)
+
+---
+## Deployment (#deployment)
 
 The application has been deployed on Heroku with the following steps:
 
@@ -35,3 +58,9 @@ The application has been deployed on Heroku with the following steps:
 20. And finally clicked the "Deploy Branch" button underneath.
 
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
+
+---
+## Credits (#credits)
+
+---
+## Acknowledgements (#acknowledgements)
