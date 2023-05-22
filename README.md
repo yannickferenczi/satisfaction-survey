@@ -88,5 +88,11 @@ The application has been deployed on Heroku with the following steps:
 ---
 ## Credits
 
+### Content
+- Google sheets has been as a data base.
+- Google drive api has been used to link the script to the data base.
+- [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey as random customers.
+- 
+
 ---
 ## Acknowledgements
