@@ -1,11 +1,8 @@
-# ********************** THIS REPRESENTS 80 CHARACTERS ********************** #
-
 import sys
-from time import sleep
 import gspread
-from google.oauth2.service_account import Credentials
 import pandas as pd
 import plotext as plt
+from google.oauth2.service_account import Credentials
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -18,17 +15,27 @@ SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
 
 
 class Question:
-    def __init__(self, number, name, options_num_values, options_text_values):
+    """
+    Creates a question.
+
+    Create a question with multiple choices answer. The name is the question
+    itself and the multiple choices have a numerical value and a corresponding
+    textual value. They are grouped in two respective lists: 
+    options_num_values and options_text_values
+    """
+    def __init__(self, number: str, name: str, options_num_values: list, options_text_values: list) -> None:
         self.number = number
         self.name = name
         self.options_num_values = options_num_values
         self.options_text_values = options_text_values
 
 
-def display_menu(user_answers, starting_question):
+def display_menu(user_answers: list, starting_question: int) -> None:
     """
-    This function display the welcoming message of the application
-    as well as the main commands to navigate within the application
+    Displays the landing page of the application
+
+    It contains a message to inform the user the purpose of the
+    application.
     """
     print("""
            Welcome to the Employee Cantina Satisfaction Survey!
@@ -62,9 +69,9 @@ def display_menu(user_answers, starting_question):
     display_menu_options(user_answers, starting_question)
     
 
-def display_menu_options(user_answers, starting_question):
+def display_menu_options(user_answers: list, starting_question: int) -> None:
     """
-    This function display the commands available to navigate within the
+    Displays the main commands available to navigate within the
     application
     """
     print("""
@@ -78,10 +85,9 @@ def display_menu_options(user_answers, starting_question):
     verify_menu_answers(user_answers, starting_question, user_choice)
 
 
-def verify_menu_answers(user_answers, starting_question, user_input):
+def verify_menu_answers(user_answers: list, starting_question: int, user_input: str) -> None:
     """
-    This function takes a user input as a parameter and decides what to 
-    run next
+    Runs the next task regarding the input of the user
     """
     if user_input.lower() == "m":
         display_menu(user_answers, starting_question)
@@ -101,10 +107,9 @@ def verify_menu_answers(user_answers, starting_question, user_input):
         display_menu_options(user_answers, starting_question)
 
 
-def confirm_exit():
+def confirm_exit() -> bool:
     """
-    This function verify if the user confirm the exit command and 
-    return a boolean
+    Verifies if the user confirm to exit the application
     """
     confirm = input("""
     If you started the survey, you will lose your progress.
@@ -115,9 +120,9 @@ def confirm_exit():
     False
 
 
-def display_survey(user_answers, starting_question):
+def display_survey(user_answers: list, starting_question: int) -> None:
     """
-    This function display all the questions, one after another and collects the answers 
+    Displays all the questions, one after another and collects the answers 
     from the user
     """
     print("    **************************** S U R V E Y ****************************")
@@ -141,11 +146,12 @@ def display_survey(user_answers, starting_question):
     display_menu_options(user_answers, starting_question)
 
 
-def display_question(question, choices):
+def display_question(question: object, choices: dict) -> str:
     """
-    This function is recursive. it displays a question of the survey and 
-    verify if the answer of the user is valid. If it is not, it calls 
-    itself again until the input is as expected
+    Displays a question of the survey
+    
+    This function is recursive. it recalls itself as long as the
+    user input is not valid.
     """
     print()
     print(f"    {question.number}. {question.name}")
@@ -160,12 +166,9 @@ def display_question(question, choices):
         return display_question(question, choices)
 
 
-def answer_is_valid(user_input, choices):
+def answer_is_valid(user_input: str, choices: dict) -> bool:
     """
-    This function verify if an input is valid.
-    It takes as parameters:
-     - the user input
-     - the possible answers for the related question
+    Verifies if an input is valid
     """
     try:
         int(user_input)
@@ -193,7 +196,13 @@ def answer_is_valid(user_input, choices):
             return True
 
 
-def show_results(user_answers, starting_question):
+def show_results(user_answers: list, starting_question: int) -> None:
+    """
+    Displays the result area of the application
+
+    It shows the current result of the survey and offer the user
+    to see more results.
+    """
     survey_text_results = get_results_from_worksheet()
     survey_num_results = convert_results_into_num(survey_text_results)
     average_satisfaction_per_question = []
@@ -214,11 +223,17 @@ def show_results(user_answers, starting_question):
         verify_menu_answers(user_answers, starting_question, answer)
 
 
-def calculate_overall_satisfaction_average(average_satisfaction_per_question):
+def calculate_overall_satisfaction_average(average_satisfaction_per_question: list) -> float:
+    """
+    Calculates the overall satisfaction average of the survey
+    """
     return sum(list_of_average:=[average[1] for average in average_satisfaction_per_question[2:-1]]) / len(list_of_average)
 
 
-def convert_results_into_charts(survey_text_results):
+def convert_results_into_charts(survey_text_results: object) -> None:
+    """
+    Creates and displays a graph of the results of the survey for each question
+    """
     print("")
     for question in questions:
         change_request = survey_text_results.pivot_table(columns= [question.name], aggfunc= "size")
@@ -228,11 +243,17 @@ def convert_results_into_charts(survey_text_results):
         print("--------")
         print("")
 
-def get_results_from_worksheet():
+def get_results_from_worksheet() -> object:
+    """
+    Gets the results of the survey from a google spreadsheet as a dataframe
+    """
     return pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
 
 
-def convert_results_into_num(dataframe_results):
+def convert_results_into_num(dataframe_results: object) -> object:
+    """
+    Converts textual results into numerical results
+    """
     new_dataframe = dataframe_results.copy()
     for question in questions:
         new_dataframe.replace(question.options_text_values, question.options_num_values, inplace=True)
