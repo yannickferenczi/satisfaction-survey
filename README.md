@@ -45,9 +45,11 @@
 ---
 ## Bugs
 
-- Add dataframe.copy() to solve the problem of replacing some needed data.
+- The dataframe created out of the results google worksheet is fullfilled with text for the users to easily understand how to answer. Nevertheless, for some average calculation, I needed to convert those text into their corresponding numerical values. The tricky part is that I had to replace one column after another as some textual values were common to different column but their corresponding numerical values were not identical. So I first used the replace method on the dataframe, with the inplace parameter set to false and assigning the new dataframe to a new variable and using a for loop iterating over every column (or otherwise said: every question). But then only the column from the last iteration would actually have the values replaced.
+So I tried to switch the inplace parameter to False. But then later on when I needed to access the dataframe with the textual values in it, it was gone. So I solved this by creating a copy of the dataframe.
 - At first, I was requesting data with the google sheets API for every single question. Unfortunately, too many requests of the google sheets API in a short time raises an error. To solve this problem, I implemented one request for the full list of questions. Nevertheless, to do so I had to reorganize the data in the worksheet.
 - The way I implemented some if statement, typing the 'enter' key on the keyboard was considered a valid answer. To fix this issue, I had to write an if statement in the case of an empty string.
+- To display the results as a graph, I first wanted to use the matplotlib library. For some reasons, the code would not raise any error nor break down, but the graph would not show up. I am not sure about this, but I might have understood that those graphs would not show up in a command line. I found another library (plotext) which display graphs within the command line. That solved my problem.
 
 ---
 ## Deployment
