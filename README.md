@@ -6,6 +6,7 @@
 ## Table of Contents
 
 1. [User Experience](#user-experience)
+    - [User Stories](#user-stories)
 2. [Technologies Used](#technologies-used)
 3. [Testing](#testing)
 4. [Bugs](#bugs)
@@ -14,19 +15,38 @@
 7. [Acknowledgements](#acknowledgements)
 
 ---
-## User Experience (#user-experience)
+## User Experience
+
+### User Stories
+
+**As a first visitor:**
+
+    - As a first visitor, I want to understand the purpose of the application so that I can decide what to do.
+    - As a first visitor, I want to understand how to use the application so that I can use it easily.
+    - As a first visitor, I don't want to start the survey again from scratch if I unintentionally navigate out of it so that I don't waste my time answering again the same questions.
+
+**As a returning visitor:**
+
+    - As a returning visitor, I want to easily navigate through the application so that I can quickly consult the results of the survey.
+    - As a returning visitor, I want to easily visualize the results of the survey so that I can get the outcome faster.
+
+**As the service provider:**
+
+    - As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers.
+    - As the service provider, I want to get feedbacks from my customers so that I can improve my service.
+
 
 ---
-## Technologies Used (#technologies-used)
+## Technologies Used
 
 ---
-## Testing (#testing)
+## Testing
 
 ---
-## Bugs (#bugs)
+## Bugs
 
 ---
-## Deployment (#deployment)
+## Deployment
 
 The application has been deployed on Heroku with the following steps:
 
@@ -60,7 +80,7 @@ The application has been deployed on Heroku with the following steps:
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
 
 ---
-## Credits (#credits)
+## Credits
 
 ---
-## Acknowledgements (#acknowledgements)
+## Acknowledgements
