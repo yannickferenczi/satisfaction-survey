@@ -21,19 +21,19 @@
 
 **As a first visitor:**
 
-    - As a first visitor, I want to understand the purpose of the application so that I can decide what to do.
-    - As a first visitor, I want to understand how to use the application so that I can use it easily.
-    - As a first visitor, I don't want to start the survey again from scratch if I unintentionally navigate out of it so that I don't waste my time answering again the same questions.
+- As a first visitor, I want to understand the purpose of the application so that I can decide what to do.
+- As a first visitor, I want to understand how to use the application so that I can use it easily.
+- As a first visitor, I don't want to start the survey again from scratch if I unintentionally navigate out of it so that I don't waste my time answering again the same questions.
 
 **As a returning visitor:**
 
-    - As a returning visitor, I want to easily navigate through the application so that I can quickly consult the results of the survey.
-    - As a returning visitor, I want to easily visualize the results of the survey so that I can get the outcome faster.
+- As a returning visitor, I want to easily navigate through the application so that I can quickly consult the results of the survey.
+- As a returning visitor, I want to easily visualize the results of the survey so that I can get the outcome faster.
 
 **As the service provider:**
 
-    - As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers.
-    - As the service provider, I want to get feedbacks from my customers so that I can improve my service.
+- As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers.
+- As the service provider, I want to get feedbacks from my customers so that I can improve my service.
 
 
 ---
@@ -44,6 +44,10 @@
 
 ---
 ## Bugs
+
+- Add dataframe.copy() to solve the problem of replacing some needed data.
+- At first, I was requesting data with the google sheets API for every single question. Unfortunately, too many requests of the google sheets API in a short time raises an error. To solve this problem, I implemented one request for the full list of questions. Nevertheless, to do so I had to reorganize the data in the worksheet.
+- The way I implemented some if statement, typing the 'enter' key on the keyboard was considered a valid answer. To fix this issue, I had to write an if statement in the case of an empty string.
 
 ---
 ## Deployment
