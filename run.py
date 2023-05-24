@@ -9,7 +9,10 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-CREDENTIALS = Credentials.from_service_account_file('creds.json', scopes=SCOPES)
+CREDENTIALS = Credentials.from_service_account_file(
+    'creds.json',
+    scopes=SCOPES,
+    )
 GSPREAD_CLIENT = gspread.authorize(CREDENTIALS)
 SPREADSHEET = GSPREAD_CLIENT.open('Cantina Satisfaction Survey')
 
@@ -23,7 +26,13 @@ class Question:
     textual value. They are grouped in two respective lists: 
     options_num_values and options_text_values
     """
-    def __init__(self, number: str, name: str, options_num_values: list, options_text_values: list) -> None:
+    def __init__(
+        self,
+        umber: str,
+        name: str,
+        options_num_values: list,
+        options_text_values: list,
+        ) -> None:
         self.number = number
         self.name = name
         self.options_num_values = options_num_values
@@ -85,7 +94,11 @@ def display_menu_options(user_answers: list, starting_question: int) -> None:
     verify_menu_answers(user_answers, starting_question, user_choice)
 
 
-def verify_menu_answers(user_answers: list, starting_question: int, user_input: str) -> None:
+def verify_menu_answers(
+    user_answers: list,
+    starting_question: int,
+    user_input: str
+    ) -> None:
     """
     Runs the next task regarding the input of the user
     """
@@ -127,7 +140,12 @@ def display_survey(user_answers: list, starting_question: int) -> None:
     """
     print("    **************************** S U R V E Y ****************************")
     for i in range(starting_question, 21):
-        choices = dict(zip(questions[i].options_num_values, questions[i].options_text_values))
+        choices = dict(
+            zip(
+                questions[i].options_num_values,
+                questions[i].options_text_values,
+            )
+        )
         answer = display_question(questions[i], choices)
         if answer in "mesr":
             verify_menu_answers(user_answers, starting_question, answer)
@@ -207,7 +225,9 @@ def show_results(user_answers: list, starting_question: int) -> None:
     survey_num_results = convert_results_into_num(survey_text_results)
     average_satisfaction_per_question = []
     for question in questions:
-        average_satisfaction_per_question.append((question.name, sum(column:=survey_num_results.get(question.name)) / len(column)))
+        column = survey_num_results.get(question.name)
+        average_satisfaction_per_question.append((question.name, sum(column) / len(column))
+        )
     overall_satisfaction_average = calculate_overall_satisfaction_average(average_satisfaction_per_question)
     print()
     print("    --------------------------------------------------")
@@ -374,8 +394,8 @@ def convert_results_into_charts(survey_text_results: object) -> None:
     """
     print("")
     for question in questions:
-        change_request = survey_text_results.pivot_table(columns= [question.name], aggfunc= "size")
-        plt.simple_bar(change_request.index, change_request, width= 80, title= question.name)
+        change_request = survey_text_results.pivot_table(columns=[question.name], aggfunc="size")
+        plt.simple_bar(change_request.index, change_request, width=80, title=question.name)
         plt.show()
         print("")
         print("--------")
