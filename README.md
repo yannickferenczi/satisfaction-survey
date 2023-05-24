@@ -54,9 +54,37 @@ A flowchart has been made to demonstrate the expected behaviour of the applicati
 
 ### Features
 
-The application opens on a landing page displaying a welcoming message and describing its main commands: 
+1. The application opens on a landing page displaying a welcoming message and describing its main commands: 
 
+    ![here](documentation/landing-page.png)
 
+2. The application display a survey and get the answers from the users:
+
+    ![here](documentation/survey.png)
+
+3. The application verify the answers of the user and display a warning if they are not valid:
+
+    ![here](documentation/answer-invalid.png)
+
+4. The application display a message to thank the users when their survey has been fully submitted: 
+
+    ![here](documentation/answers-submitted.png)
+
+5. Users are asked to confirm when they want to exit the application:
+
+    ![here](documentation/confirmation-message.png)
+
+6. Users receive a nice greeting when exiting the application:
+
+    ![here](documentation/good-bye-message.png)
+
+7. The application displays the results of the survey:
+
+    ![here](documentation/results.png)
+
+8. The application collects the results into graphs for a better visualisation:
+
+    ![here](documentation/results-details.png)
 
 ---
 ## Technologies Used
