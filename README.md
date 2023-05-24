@@ -89,6 +89,8 @@ A flowchart has been made to demonstrate the expected behaviour of the applicati
 ---
 ## Technologies Used
 
+- Python 
+
 ---
 ## Testing
 
