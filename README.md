@@ -89,7 +89,19 @@ A flowchart has been made to demonstrate the expected behaviour of the applicati
 ---
 ## Technologies Used
 
-- Python 
+Language
+
+- Python
+
+Frameworks and other Programs
+
+- The python module Pandas has been used to organise and manipulate the data
+- The python module plotext has been used to display graphs within the command line
+- Google has been used to storaged data and access them via an API
+- Google sheets has been used as a data base.
+- Google drive api has been used to link the script to the data base.
+- [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey with fake random customers.
+- [tinypng](https://tinypng.com/) has been used to reduce the size of the screenshots display in the README.md file.
 
 ---
 ## Testing
@@ -167,10 +179,8 @@ The application has been deployed on Heroku with the following steps:
 ## Credits
 
 ### Content
-- Google sheets has been as a data base.
-- Google drive api has been used to link the script to the data base.
-- [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey as random customers.
-- 
+- [Real Python](https://realpython.com/documenting-python-code/) has been used to document the code
+
 
 ---
 ## Acknowledgements
