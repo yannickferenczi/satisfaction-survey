@@ -15,7 +15,11 @@
 7. [Acknowledgements](#acknowledgements)
 
 ---
-## User Experience
+## User Experience (UX)
+
+### Target Audience
+
+The target audience of this application are the employees of the company offering a cantina service.
 
 ### User Stories
 
@@ -34,6 +38,23 @@
 
 - As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers.
 - As the service provider, I want to get feedbacks from my customers so that I can improve my service.
+
+
+---
+## Design
+
+### Flowchart
+
+The application has been design so that users can navigate through it, using some basic commands described within the application and exit the application whenever they decide.
+
+A flowchart has been made to demonstrate the expected behaviour of the application and help its development:
+
+![here](documentation/logic-chart.png)
+
+### Features
+
+The application opens on a landing page displaying a welcoming message and describing its main commands: 
+
 
 
 ---
