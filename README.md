@@ -1,5 +1,7 @@
 # Cantina Satisfaction Survey
 
+This is a command line application for a company cantina to reach out their customer with a survey and get some feedback to help them improve the quality of their service and better provide for the needs of the company employees.
+
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
 
 ---
@@ -38,7 +40,6 @@ The target audience of this application are the employees of the company offerin
 
 - As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers.
 - As the service provider, I want to get feedbacks from my customers so that I can improve my service.
-
 
 ---
 ## Design
