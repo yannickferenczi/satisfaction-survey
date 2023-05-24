@@ -1,8 +1,135 @@
 # Cantina Satisfaction Survey
 
+This is a command line application for a company cantina to reach out their customer with a survey and get some feedback to help them improve the quality of their service and better provide for the needs of the company employees.
+
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
 
+---
+## Table of Contents
 
+1. [User Experience](#user-experience)
+    - [User Stories](#user-stories)
+2. [Technologies Used](#technologies-used)
+3. [Testing](#testing)
+4. [Bugs](#bugs)
+5. [Deployment](#deployment)
+6. [Credits](#credits)
+7. [Acknowledgements](#acknowledgements)
+
+---
+## User Experience (UX)
+
+### Target Audience
+
+The target audience of this application are the employees of the company offering a cantina service.
+
+### User Stories
+
+**As a first visitor:**
+
+- As a first visitor, I want to understand the purpose of the application so that I can decide what to do.
+- As a first visitor, I want to understand how to use the application so that I can use it easily.
+- As a first visitor, I don't want to start the survey again from scratch if I unintentionally navigate out of it so that I don't waste my time answering again the same questions.
+
+**As a returning visitor:**
+
+- As a returning visitor, I want to easily navigate through the application so that I can quickly consult the results of the survey.
+- As a returning visitor, I want to easily visualize the results of the survey so that I can get the outcome faster.
+
+**As the service provider:**
+
+- As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers.
+- As the service provider, I want to get feedbacks from my customers so that I can improve my service.
+
+---
+## Design
+
+### Flowchart
+
+The application has been design so that users can navigate through it, using some basic commands described within the application and exit the application whenever they decide.
+
+A flowchart has been made to demonstrate the expected behaviour of the application and help its development:
+
+![here](documentation/logic-chart.png)
+
+### Features
+
+1. The application opens on a landing page displaying a welcoming message and describing its main commands: 
+
+    ![here](documentation/landing-page.png)
+
+2. The application display a survey and get the answers from the users:
+
+    ![here](documentation/survey.png)
+
+3. The application verify the answers of the user and display a warning if they are not valid:
+
+    ![here](documentation/answer-invalid.png)
+
+4. The application display a message to thank the users when their survey has been fully submitted: 
+
+    ![here](documentation/answers-submitted.png)
+
+5. Users are asked to confirm when they want to exit the application:
+
+    ![here](documentation/confirmation-message.png)
+
+6. Users receive a nice greeting when exiting the application:
+
+    ![here](documentation/good-bye-message.png)
+
+7. The application displays the results of the survey:
+
+    ![here](documentation/results.png)
+
+8. The application collects the results into graphs for a better visualisation:
+
+    ![here](documentation/results-details.png)
+
+---
+## Technologies Used
+
+- Python 
+
+---
+## Testing
+
+### Feature testing
+
+| Tests | Results |
+| :--- | :---: |
+| When opening the application, the welcoming message and the main commands are displayed | pass |
+| When typing (s) or (S) at the first time, the first question is displayed | pass |
+| When answering any question with one of the number matching a proposition, the next question is displayed | pass |
+| At any time, when typing something else than one of the expected character, a message 'answer invalid' is displayed and users are asked again what they want to do | pass |
+| When typing one of the main command anywhere within the application, the main command is executed | pass |
+| At any time, When typing the command to exit the application, users are asked for confirmation with a warning that the progress in the survey will be lost if not fully complete | pass |
+| When users navigate to other area from a started survey and go back to the survey area, the last not answered question is displayed | pass |
+| Within the same 'connection', meaning as long as the page is not being reloaded, users can not refill the survey | pass |
+| When a survey has been fully completed, the answered are saved into the google worksheet | pass |
+| When typing (r) or (R), users are led to the results area and the overall satisfaction average is displayed | pass |
+| From the results area, while typing (d) or (D), a graph per question representing the results are displayed | pass |
+
+
+### User stories testing
+
+
+---
+## Bugs
+
+### The fixed ones
+
+- The dataframe created out of the results google worksheet is fullfilled with text for the users to easily understand how to answer. Nevertheless, for some average calculation, I needed to convert those text into their corresponding numerical values. The tricky part is that I had to replace one column after another as some textual values were common to different column but their corresponding numerical values were not identical. So I first used the replace method on the dataframe, with the inplace parameter set to false and assigning the new dataframe to a new variable and using a for loop iterating over every column (or otherwise said: every question). But then only the column from the last iteration would actually have the values replaced.
+So I tried to switch the inplace parameter to False. But then later on when I needed to access the dataframe with the textual values in it, it was gone. So I solved this by creating a copy of the dataframe.
+- At first, I was requesting data with the google sheets API for every single question. Unfortunately, too many requests of the google sheets API in a short time raises an error. To solve this problem, I implemented one request for the full list of questions. Nevertheless, to do so I had to reorganize the data in the worksheet.
+- The way I implemented some if statement, typing the 'enter' key on the keyboard was considered a valid answer. To fix this issue, I had to write an if statement in the case of an empty string.
+- To display the results as a graph, I first wanted to use the matplotlib library. For some reasons, the code would not raise any error nor break down, but the graph would not show up. I am not sure about this, but I might have understood that those graphs would not show up in a command line. I found another library (plotext) which display graphs within the command line. That solved my problem.
+
+### The remaining ones
+
+- When typing the exit command (e) or (E) while progressing through the survey, users are asked to confirm. If they cancel, with answering no to the confirmation, users are led back to the main menu. It is not a big issue as they can go back at the question they had not answered yet by typing the survey command (s) or (S). But it is a weird behaviour and gives a poor user experience. This could be solve with more time by adding a specific verification when the exit command is used within the survey.
+
+---
 ## Deployment
 
 The application has been deployed on Heroku with the following steps:
@@ -35,3 +162,15 @@ The application has been deployed on Heroku with the following steps:
 20. And finally clicked the "Deploy Branch" button underneath.
 
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
+
+---
+## Credits
+
+### Content
+- Google sheets has been as a data base.
+- Google drive api has been used to link the script to the data base.
+- [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey as random customers.
+- 
+
+---
+## Acknowledgements
