@@ -6,15 +6,26 @@ This is a command line application for a company cantina to reach out their cust
 
 ---
 ## Table of Contents
-
-1. [User Experience](#user-experience)
+[Cantina Satisfaction Survey](#cantina-satisfaction-survey)
+  - [Table of Contents](#table-of-contents)
+  - [User Experience (UX)](#user-experience-ux)
+    - [Target Audience](#target-audience)
     - [User Stories](#user-stories)
-2. [Technologies Used](#technologies-used)
-3. [Testing](#testing)
-4. [Bugs](#bugs)
-5. [Deployment](#deployment)
-6. [Credits](#credits)
-7. [Acknowledgements](#acknowledgements)
+  - [Design](#design)
+    - [Flowchart](#flowchart)
+    - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [Testing](#testing)
+    - [Feature testing](#feature-testing)
+    - [User stories testing](#user-stories-testing)
+  - [Bugs](#bugs)
+    - [The fixed ones](#the-fixed-ones)
+    - [The remaining ones](#the-remaining-ones)
+  - [Deployment](#deployment)
+  - [Credits](#credits)
+    - [Content](#content)
+  - [Acknowledgements](#acknowledgements)
+
 
 ---
 ## User Experience (UX)
@@ -27,26 +38,27 @@ The target audience of this application are the employees of the company offerin
 
 **As a first visitor:**
 
-- As a first visitor, I want to understand the purpose of the application so that I can decide what to do.
-- As a first visitor, I want to understand how to use the application so that I can use it easily.
-- As a first visitor, I don't want to start the survey again from scratch if I unintentionally navigate out of it so that I don't waste my time answering again the same questions.
+- As a first visitor, I want to understand the purpose of the application so that I can decide what to do. (US01)
+- As a first visitor, I want to understand how to use the application so that I can use it easily. (US02)
+- As a first visitor, I don't want to start the survey again from scratch if I unintentionally navigate out of it so that I don't waste my time answering again the same questions. (US03)
 
 **As a returning visitor:**
 
-- As a returning visitor, I want to easily navigate through the application so that I can quickly consult the results of the survey.
+- As a returning visitor, I want to easily navigate through the application so that I can quickly consult the results of the survey. (US04)
 - As a returning visitor, I want to easily visualize the results of the survey so that I can get the outcome faster.
+- As a returning visitor, I want a confirmation of my actions, so that I know things go right. (US06)
 
 **As the service provider:**
 
-- As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers.
-- As the service provider, I want to get feedbacks from my customers so that I can improve my service.
+- As the service provider, I want to get as many persons as possible to answer the survey so that I have a more relevant understanding of what are the needs of most of my customers. (US07)
+- As the service provider, I want to get feedbacks from my customers so that I can improve my service. (US08)
 
 ---
 ## Design
 
-### Flowchart
-
 The application has been design so that users can navigate through it, using some basic commands described within the application and exit the application whenever they decide.
+
+### Flowchart
 
 A flowchart has been made to demonstrate the expected behaviour of the application and help its development:
 
@@ -54,47 +66,60 @@ A flowchart has been made to demonstrate the expected behaviour of the applicati
 
 ### Features
 
-1. The application opens on a landing page displaying a welcoming message and describing its main commands: 
+- F01: The application opens on a landing page displaying a welcoming message and describing its main commands: 
 
     ![here](documentation/landing-page.png)
 
-2. The application display a survey and get the answers from the users:
+- F02: The application display a survey and get the answers from the users:
 
     ![here](documentation/survey.png)
 
-3. The application verify the answers of the user and display a warning if they are not valid:
+- F03: The application verify the answers of the user and display a warning if they are not valid:
 
     ![here](documentation/answer-invalid.png)
 
-4. The application display a message to thank the users when their survey has been fully submitted: 
+- F04: The application display a message to thank the users when their survey has been fully submitted: 
 
     ![here](documentation/answers-submitted.png)
 
-5. Users are asked to confirm when they want to exit the application:
+- F05: Users are asked to confirm when they want to exit the application:
 
     ![here](documentation/confirmation-message.png)
 
-6. Users receive a nice greeting when exiting the application:
+- F06: Users receive a nice greeting when exiting the application:
 
     ![here](documentation/good-bye-message.png)
 
-7. The application displays the results of the survey:
+- F07: The application displays the results of the survey:
 
     ![here](documentation/results.png)
 
-8. The application collects the results into graphs for a better visualisation:
+- F08 The application collects the results into graphs for a better visualisation:
 
     ![here](documentation/results-details.png)
 
 ---
 ## Technologies Used
 
-- Python 
+Languages
+
+- Python
+- Markdown
+
+Frameworks and other Programs
+
+- The python module Pandas has been used to organise and manipulate the data
+- The python module plotext has been used to display graphs within the command line
+- Google has been used to storaged data and access them via an API
+- Google sheets has been used as a data base.
+- Google drive api has been used to link the script to the data base.
+- [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey with fake random customers.
+- [tinypng](https://tinypng.com/) has been used to reduce the size of the screenshots display in the README.md file.
 
 ---
 ## Testing
 
-### Feature testing
+### Manual testing
 
 | Tests | Results |
 | :--- | :---: |
@@ -111,8 +136,18 @@ A flowchart has been made to demonstrate the expected behaviour of the applicati
 | From the results area, while typing (d) or (D), a graph per question representing the results are displayed | pass |
 
 
-### User stories testing
+### Features testing along with the User stories
 
+| Features \ User Stories | US01 | US02 | US03 | US04 | US05 | US06 | US07 | US08 |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| F01 | X | X |   |   |   |   | X |   |
+| F02 |   |   |   |   |   |   |   | X |
+| F03 |   |   |   |   |   | X | X |   |
+| F04 |   |   |   |   |   | X |   |   |
+| F05 |   |   | X |   |   | X |   |   |
+| F06 |   |   |   |   |   | X |   |   |
+| F07 |   |   |   | X | X |   |   |   |
+| F08 |   |   |   |   | X |   |   |   |
 
 ---
 ## Bugs
@@ -127,7 +162,7 @@ So I tried to switch the inplace parameter to False. But then later on when I ne
 
 ### The remaining ones
 
-- When typing the exit command (e) or (E) while progressing through the survey, users are asked to confirm. If they cancel, with answering no to the confirmation, users are led back to the main menu. It is not a big issue as they can go back at the question they had not answered yet by typing the survey command (s) or (S). But it is a weird behaviour and gives a poor user experience. This could be solve with more time by adding a specific verification when the exit command is used within the survey.
+- When typing the exit command (e) or (E) while progressing through the survey, users are asked to confirm. If they cancel, with answering no to the confirmation, users are led back to the main menu. It is not a big issue as they can go back at the question they had not answered yet by typing the survey command (s) or (S). But it is a weird behaviour and gives a poor user experience. This could be solved with more time by adding a specific verification when the exit command is used within the survey.
 
 ---
 ## Deployment
@@ -167,10 +202,8 @@ The application has been deployed on Heroku with the following steps:
 ## Credits
 
 ### Content
-- Google sheets has been as a data base.
-- Google drive api has been used to link the script to the data base.
-- [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey as random customers.
-- 
+- [Real Python](https://realpython.com/documenting-python-code/) has been used to document the code
+
 
 ---
 ## Acknowledgements
