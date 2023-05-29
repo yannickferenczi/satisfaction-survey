@@ -101,10 +101,9 @@ A flowchart has been made to demonstrate the expected behaviour of the applicati
 ---
 ## Technologies Used
 
-Languages
+Language
 
 - Python
-- Markdown
 
 Frameworks and other Programs
 
@@ -112,7 +111,7 @@ Frameworks and other Programs
 - The python module plotext has been used to display graphs within the command line
 - Google has been used to storaged data and access them via an API
 - Google sheets has been used as a data base.
-- Google drive api has been used to link the script to the data base.
+- gspread api has been used to link the script to the data base.
 - [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey with fake random customers.
 - [tinypng](https://tinypng.com/) has been used to reduce the size of the screenshots display in the README.md file.
 
@@ -120,6 +119,8 @@ Frameworks and other Programs
 ## Testing
 
 ### Manual testing
+
+![passed](https://img.shields.io/static/v1?label=passed_test&message=11&color=success&style=plastic)
 
 | Tests | Results |
 | :--- | :---: |
