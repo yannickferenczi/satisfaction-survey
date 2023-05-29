@@ -137,7 +137,7 @@ Frameworks and other Programs
 
 The code of run.py has been checked using the [CI Python Linter](https://pep8ci.herokuapp.com/).
 
-The results is as below. Some lines of code exceed 79 characters and could not be reduced:
+The results is as below. Some lines of code exceed 79 characters and could either be fixed but seem to generate indentation error or could sumply not be reduced. The results: 
 
 ![pyhton checker results](documentation/python-checker.png)
 
@@ -226,7 +226,7 @@ The application has been deployed on Heroku with the following steps:
 
 ### Local development
 
-To use this project on your own, you will need to create a spreadsheet with a certain format. The 'sample_spreadsheet.xlsx' in the root directory of this project should be used as a template to recreate the one currently linked to the live project.
+To use this project on your own, you will need to create a spreadsheet with a certain format. The 'sample_spreadsheet.xlsx' in the assets directory of this project should be used as a template to recreate the one currently linked to the live project.
 Then in the line 17 of run.py, the string should match the name of the spreadsheet.
 And the creds.json file should contain your own credentials. You can create it using the google drive api. More information on [how to get your gspread credentials](https://docs.gspread.org/en/v5.7.1/oauth2.html#enable-api-access). 
 
