@@ -1,9 +1,18 @@
+<div align="center">
+
 # Cantina Satisfaction Survey
+
+
+![deployment](https://img.shields.io/static/v1?label=deployed&message=Yes&color=success&style=plastic)
+![deployment](https://img.shields.io/static/v1?label=plateform&message=Heroku&color=634987&style=plastic)
 
 This is a command line application for a company cantina to reach out their customer with a survey and get some feedback to help them improve the quality of their service and better provide for the needs of the company employees.
 
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
 
+</div>
+
+---
 ---
 ## Table of Contents
 [Cantina Satisfaction Survey](#cantina-satisfaction-survey)
@@ -114,6 +123,7 @@ Frameworks and other Programs
 - gspread api has been used to link the script to the data base.
 - [Mockaroo](https://www.mockaroo.com/) has been used to generate data to fullfil the survey with fake random customers.
 - [tinypng](https://tinypng.com/) has been used to reduce the size of the screenshots display in the README.md file.
+- [Shields.io](https://shields.io/) has been used to add badges to the README
 
 ---
 ## Testing
@@ -166,7 +176,9 @@ So I tried to switch the inplace parameter to False. But then later on when I ne
 - When typing the exit command (e) or (E) while progressing through the survey, users are asked to confirm. If they cancel, with answering no to the confirmation, users are led back to the main menu. It is not a big issue as they can go back at the question they had not answered yet by typing the survey command (s) or (S). But it is a weird behaviour and gives a poor user experience. This could be solved with more time by adding a specific verification when the exit command is used within the survey.
 
 ---
-## Deployment
+## Deployment & local development
+
+### Deployment
 
 The application has been deployed on Heroku with the following steps:
 
@@ -198,6 +210,26 @@ The application has been deployed on Heroku with the following steps:
 20. And finally clicked the "Deploy Branch" button underneath.
 
 [The live project is visible here](https://cantina-satisfaction-survey.herokuapp.com/)
+
+### Local development
+
+To use this project on your own, you will need to create a spreadsheet with a certain format. The 'sample_spreadsheet.xlsx' in the root directory of this project should be used as a template to recreate the one currently linked to the live project.
+Then in the line 17 of run.py, the string should match the name of the spreadsheet.
+And the creds.json file should contain your own credentials. You can create it using the google drive api. More information on [how to get your gspread credentials](https://docs.gspread.org/en/v5.7.1/oauth2.html#enable-api-access). 
+
+**How to fork**
+
+1. Log in to [GitHub](https://github.com/).
+2. [Click here](https://github.com/yannickferenczi/satisfaction-survey) to go to the repository of this project
+3. Click the Fork button in the top right corner.
+
+**How to clone**
+
+1. Log in to [GitHub](https://github.com/).
+2. [Click here](https://github.com/yannickferenczi/satisfaction-survey) to go to the repository of this project
+3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
+5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
 ---
 ## Credits

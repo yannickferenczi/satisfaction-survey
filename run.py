@@ -23,16 +23,11 @@ class Question:
 
     Create a question with multiple choices answer. The name is the question
     itself and the multiple choices have a numerical value and a corresponding
-    textual value. They are grouped in two respective lists: 
+    textual value. They are grouped in two respective lists:
     options_num_values and options_text_values
     """
-    def __init__(
-        self,
-        umber: str,
-        name: str,
-        options_num_values: list,
-        options_text_values: list,
-        ) -> None:
+    def __init__(self, number: str, name: str, options_num_values: list,
+            options_text_values: list) -> None:
         self.number = number
         self.name = name
         self.options_num_values = options_num_values
@@ -76,7 +71,7 @@ def display_menu(user_answers: list, starting_question: int) -> None:
     """)
 
     display_menu_options(user_answers, starting_question)
-    
+
 
 def display_menu_options(user_answers: list, starting_question: int) -> None:
     """
@@ -94,11 +89,8 @@ def display_menu_options(user_answers: list, starting_question: int) -> None:
     verify_menu_answers(user_answers, starting_question, user_choice)
 
 
-def verify_menu_answers(
-    user_answers: list,
-    starting_question: int,
-    user_input: str
-    ) -> None:
+def verify_menu_answers(user_answers: list, starting_question: int,
+        user_input: str) -> None:
     """
     Runs the next task regarding the input of the user
     """
@@ -110,7 +102,7 @@ def verify_menu_answers(
         show_results(user_answers, starting_question)
     elif user_input.lower() == "e":
         if confirm_exit():
-            some_spacing = "\n" * 12
+            some_spacing = "\n" * 11
             good_bye_message = f"{some_spacing}    Thank you for your visit! Have a great day!{some_spacing}"
             sys.exit(good_bye_message)
         else:
@@ -135,7 +127,7 @@ def confirm_exit() -> bool:
 
 def display_survey(user_answers: list, starting_question: int) -> None:
     """
-    Displays all the questions, one after another and collects the answers 
+    Displays all the questions, one after another and collects the answers
     from the user
     """
     print("    **************************** S U R V E Y ****************************")
@@ -167,7 +159,7 @@ def display_survey(user_answers: list, starting_question: int) -> None:
 def display_question(question: object, choices: dict) -> str:
     """
     Displays a question of the survey
-    
+    ---
     This function is recursive. it recalls itself as long as the
     user input is not valid.
     """
@@ -194,7 +186,7 @@ def answer_is_valid(user_input: str, choices: dict) -> bool:
         if user_input.lower() not in "mesr" or user_input.lower() == "":
             print("""
     !! answer not valid !!
-    Remember, the main commands are: 
+    Remember, the main commands are:
         - (m) or (M) for the menu
         - (s) or (S) for the survey
         - (r) or (R) for the results
@@ -226,9 +218,11 @@ def show_results(user_answers: list, starting_question: int) -> None:
     average_satisfaction_per_question = []
     for question in questions:
         column = survey_num_results.get(question.name)
-        average_satisfaction_per_question.append((question.name, sum(column) / len(column))
+        average_satisfaction_per_question.append(
+            (question.name, sum(column) / len(column))
         )
-    overall_satisfaction_average = calculate_overall_satisfaction_average(average_satisfaction_per_question)
+    overall_satisfaction_average = calculate_overall_satisfaction_average(
+        average_satisfaction_per_question)
     print()
     print("    --------------------------------------------------")
     print("    The current overall satisfaction of our customers:")
@@ -246,11 +240,12 @@ def show_results(user_answers: list, starting_question: int) -> None:
         verify_menu_answers(user_answers, starting_question, answer)
 
 
-def calculate_overall_satisfaction_average(average_satisfaction_per_question: list) -> float:
+def calculate_overall_satisfaction_average(
+        average_satisfaction_per_question: list) -> float:
     """
     Calculates the overall satisfaction average of the survey
     """
-    return sum(list_of_average:=[average[1] for average in average_satisfaction_per_question[2:-1]]) / len(list_of_average)
+    return sum(list_of_average := [average[1] for average in average_satisfaction_per_question[2:-1]]) / len(list_of_average)
 
 
 def display_5_stars_rating(average: float) -> str:
@@ -388,6 +383,7 @@ def display_5_stars_rating(average: float) -> str:
         """
     print(rating)
 
+
 def convert_results_into_charts(survey_text_results: object) -> None:
     """
     Creates and displays a graph of the results of the survey for each question
@@ -400,6 +396,7 @@ def convert_results_into_charts(survey_text_results: object) -> None:
         print("")
         print("--------")
         print("")
+
 
 def get_results_from_worksheet() -> object:
     """
