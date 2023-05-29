@@ -25,15 +25,20 @@ This is a command line application for a company cantina to reach out their cust
     - [Features](#features)
   - [Technologies Used](#technologies-used)
   - [Testing](#testing)
-    - [Feature testing](#feature-testing)
-    - [User stories testing](#user-stories-testing)
+    - [Syntaxe testing](#syntaxe-testing)
+    - [Manual testing](#manual-testing)
+    - [Features testing along with the User stories](#features-testing-along-with-the-user-stories)
   - [Bugs](#bugs)
     - [The fixed ones](#the-fixed-ones)
     - [The remaining ones](#the-remaining-ones)
-  - [Deployment](#deployment)
+  - [Deployment \& local development](#deployment--local-development)
+    - [Deployment](#deployment)
+    - [Local development](#local-development)
   - [Credits](#credits)
     - [Content](#content)
+    - [Guidance](#guidance)
   - [Acknowledgements](#acknowledgements)
+
 
 
 ---
@@ -243,8 +248,17 @@ And the creds.json file should contain your own credentials. You can create it u
 ## Credits
 
 ### Content
+
+The content has been entirely created by the programmer of this app.
+
+### Guidance
+
 - [Real Python](https://realpython.com/documenting-python-code/) has been used to document the code
 
 
 ---
 ## Acknowledgements
+
+Thank you to Alan, my facilitator at [Code Institute](https://codeinstitute.net/de/), for supporting me on this project, as I could not manage to organize an appointment with my mentor.
+
+Thank you to my friends and family who helped me test the survey.
