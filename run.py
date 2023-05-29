@@ -386,12 +386,18 @@ def display_5_stars_rating(average: float) -> str:
 
 def convert_results_into_charts(survey_text_results: object) -> None:
     """
-    Creates and displays a graph of the results of the survey for each question
+    Creates and displays a graph of the results of the survey for each
+    question
     """
     print("")
     for question in questions:
-        change_request = survey_text_results.pivot_table(columns=[question.name], aggfunc="size")
-        plt.simple_bar(change_request.index, change_request, width=80, title=question.name)
+        change_request = survey_text_results.pivot_table(
+            columns=[question.name], aggfunc="size")
+        plt.simple_bar(
+            change_request.index,
+            change_request,
+            width=80,
+            title=question.name)
         plt.show()
         print("")
         print("--------")
@@ -402,7 +408,8 @@ def get_results_from_worksheet() -> object:
     """
     Gets the results of the survey from a google spreadsheet as a dataframe
     """
-    return pd.DataFrame(SPREADSHEET.worksheet("Survey results").get_all_records())
+    return pd.DataFrame(
+        SPREADSHEET.worksheet("Survey results").get_all_records())
 
 
 def convert_results_into_num(dataframe_results: object) -> object:
@@ -411,12 +418,16 @@ def convert_results_into_num(dataframe_results: object) -> object:
     """
     new_dataframe = dataframe_results.copy()
     for question in questions:
-        new_dataframe.replace(question.options_text_values, question.options_num_values, inplace=True)
+        new_dataframe.replace(
+            question.options_text_values,
+            question.options_num_values,
+            inplace=True)
     return new_dataframe
 
 
 if __name__ == "__main__":
-    questions_df = pd.DataFrame(SPREADSHEET.worksheet("Survey questions").get_all_records())
+    questions_df = pd.DataFrame(
+        SPREADSHEET.worksheet("Survey questions").get_all_records())
     questions = []
     for i in range(0, 101, 5):
         question_number = questions_df.at[i, "Question numbers"]
@@ -425,9 +436,15 @@ if __name__ == "__main__":
         options_text_val = []
         for j in range(5):
             if questions_df.at[i+j, "text values"] != "":
-                options_num_val.append(questions_df.at[i+j, "numeric values"])
-                options_text_val.append(questions_df.at[i+j, "text values"])
-        questions.append(Question(question_number, question_name, options_num_val, options_text_val))
+                options_num_val.append(
+                    questions_df.at[i+j, "numeric values"])
+                options_text_val.append(
+                    questions_df.at[i+j, "text values"])
+        questions.append(Question(
+            question_number,
+            question_name,
+            options_num_val,
+            options_text_val))
     user_answers = []
     starting_question = 0
     display_menu(user_answers, starting_question)
