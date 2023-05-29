@@ -128,6 +128,14 @@ Frameworks and other Programs
 ---
 ## Testing
 
+### Syntaxe testing
+
+The code of run.py has been checked using the [CI Python Linter](https://pep8ci.herokuapp.com/).
+
+The results is as below. Some lines of code exceed 79 characters and could not be reduced:
+
+![pyhton checker results](documentation/python-checker.png)
+
 ### Manual testing
 
 ![passed](https://img.shields.io/static/v1?label=passed_test&message=11&color=success&style=plastic)
