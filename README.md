@@ -137,7 +137,7 @@ Frameworks and other Programs
 
 The code of run.py has been checked using the [CI Python Linter](https://pep8ci.herokuapp.com/).
 
-The results is as below. Some lines of code exceed 79 characters and could either be fixed but seem to generate indentation error or could sumply not be reduced. The results: 
+It has been complicated to solve the "line too long issues". But after some research and some tips from other developers within the python community, I managed to get rid of all of them: 
 
 ![pyhton checker results](documentation/python-checker.png)
 

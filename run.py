@@ -1,4 +1,5 @@
-import sys
+from sys import exit
+
 import gspread
 import pandas as pd
 import plotext as plt
@@ -21,12 +22,15 @@ class Question:
     """
     Creates a question.
 
-    Create a question with multiple choices answer. The name is the question
-    itself and the multiple choices have a numerical value and a corresponding
-    textual value. They are grouped in two respective lists:
-    options_num_values and options_text_values
+    Create a question with multiple choices answer. The name is the
+    question itself and the multiple choices have a numerical value
+    and a corresponding textual value. They are grouped in two
+    respective lists: options_num_values and options_text_values
     """
-    def __init__(self, number: str, name: str, options_num_values: list,
+    def __init__(
+            self, number: str,
+            name: str,
+            options_num_values: list,
             options_text_values: list) -> None:
         self.number = number
         self.name = name
@@ -89,7 +93,9 @@ def display_menu_options(user_answers: list, starting_question: int) -> None:
     verify_menu_answers(user_answers, starting_question, user_choice)
 
 
-def verify_menu_answers(user_answers: list, starting_question: int,
+def verify_menu_answers(
+        user_answers: list,
+        starting_question: int,
         user_input: str) -> None:
     """
     Runs the next task regarding the input of the user
@@ -103,7 +109,8 @@ def verify_menu_answers(user_answers: list, starting_question: int,
     elif user_input.lower() == "e":
         if confirm_exit():
             some_spacing = "\n" * 11
-            good_bye_message = f"{some_spacing}    Thank you for your visit! Have a great day!{some_spacing}"
+            good_bye_message = f"{some_spacing}    Thank you for your visit! \
+                Have a great day!{some_spacing}"
             sys.exit(good_bye_message)
         else:
             display_menu_options(user_answers, starting_question)
@@ -130,7 +137,8 @@ def display_survey(user_answers: list, starting_question: int) -> None:
     Displays all the questions, one after another and collects the answers
     from the user
     """
-    print("    **************************** S U R V E Y ****************************")
+    print("    **************************** S U R V E Y \
+        ****************************")
     for i in range(starting_question, 21):
         choices = dict(
             zip(
@@ -245,7 +253,10 @@ def calculate_overall_satisfaction_average(
     """
     Calculates the overall satisfaction average of the survey
     """
-    return sum(list_of_average := [average[1] for average in average_satisfaction_per_question[2:-1]]) / len(list_of_average)
+    return sum(
+        list_of_average := [
+            average[1] for average in average_satisfaction_per_question[2:-1]]
+        ) / len(list_of_average)
 
 
 def display_5_stars_rating(average: float) -> str:
@@ -406,7 +417,8 @@ def convert_results_into_charts(survey_text_results: object) -> None:
 
 def get_results_from_worksheet() -> object:
     """
-    Gets the results of the survey from a google spreadsheet as a dataframe
+    Gets the results of the survey from a google spreadsheet as a
+    dataframe
     """
     return pd.DataFrame(
         SPREADSHEET.worksheet("Survey results").get_all_records())
