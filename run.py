@@ -109,9 +109,9 @@ def verify_menu_answers(
     elif user_input.lower() == "e":
         if confirm_exit():
             some_spacing = "\n" * 11
-            good_bye_message = f"{some_spacing}    Thank you for your visit! \
-                Have a great day!{some_spacing}"
-            sys.exit(good_bye_message)
+            good_bye_message = f"{some_spacing}    Thank you for your visit! "\
+                f"Have a great day!{some_spacing}"
+            exit(good_bye_message)
         else:
             display_menu_options(user_answers, starting_question)
     else:
@@ -125,7 +125,7 @@ def confirm_exit() -> bool:
     """
     confirm = input("""
     If you started the survey, you will lose your progress.
-    Do you really want to exit the application ([y]/n)?\n
+    Do you really want to exit the application (y/n)?\n
     """)
     if confirm == "y":
         return True
@@ -137,8 +137,8 @@ def display_survey(user_answers: list, starting_question: int) -> None:
     Displays all the questions, one after another and collects the answers
     from the user
     """
-    print("    **************************** S U R V E Y \
-        ****************************")
+    print("    **************************** S U R V E Y "\
+        "****************************")
     for i in range(starting_question, 21):
         choices = dict(
             zip(

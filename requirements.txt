@@ -6,6 +6,7 @@ google-auth==2.18.0
 google-auth-oauthlib==1.0.0
 gspread==5.9.0
 kiwisolver==1.4.4
+numpy==1.24.3
 oauthlib==3.2.2
 pandas==2.0.1
 Pillow==9.5.0
