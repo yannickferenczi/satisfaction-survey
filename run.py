@@ -137,8 +137,8 @@ def display_survey(user_answers: list, starting_question: int) -> None:
     Displays all the questions, one after another and collects the answers
     from the user
     """
-    print("    **************************** S U R V E Y "\
-        "****************************")
+    print("    **************************** S U R V E Y "
+          "****************************")
     for i in range(starting_question, 21):
         choices = dict(
             zip(
